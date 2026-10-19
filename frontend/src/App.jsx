@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react'
 import workoutService from './services/workouts'
 import WorkoutForm from './components/WorkoutForm'
-import WorkoutList from './components/WorkoutList'
+import WorkoutTable from './components/WorkoutTable'
 import Filter from './components/Filter'
+
+const SPORTS = ['Juoksu', 'Kuntosali', 'Pyöräily', 'Uinti', 'Hiihto', 'Muu']
+
+const today = () => new Date().toISOString().slice(0, 10)
 
 const App = () => {
   const [workouts, setWorkouts] = useState([])
-  const [newDate, setNewDate] = useState('')
-  const [newSport, setNewSport] = useState('')
+  const [newDate, setNewDate] = useState(today())
+  const [newSport, setNewSport] = useState(SPORTS[0])
   const [newDuration, setNewDuration] = useState('')
   const [filter, setFilter] = useState('')
 
@@ -26,8 +30,6 @@ const App = () => {
     }
     workoutService.create(workoutObject).then(returnedWorkout => {
       setWorkouts(workouts.concat(returnedWorkout))
-      setNewDate('')
-      setNewSport('')
       setNewDuration('')
     })
   }
@@ -55,6 +57,7 @@ const App = () => {
 
       <h2>Lisää treeni</h2>
       <WorkoutForm
+        sports={SPORTS}
         addWorkout={addWorkout}
         newDate={newDate}
         newSport={newSport}
@@ -66,7 +69,7 @@ const App = () => {
 
       <h2>Treenit</h2>
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
-      <WorkoutList workouts={workoutsToShow} deleteWorkout={deleteWorkout} />
+      <WorkoutTable workouts={workoutsToShow} deleteWorkout={deleteWorkout} />
     </div>
   )
 }

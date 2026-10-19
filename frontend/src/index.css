@@ -4,11 +4,18 @@ body {
 }
 
 h1 {
-  color: red;
+  color: green;
 }
 
-li {
-  margin-bottom: 5px;
+table {
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  text-align: left;
 }
 
 button {

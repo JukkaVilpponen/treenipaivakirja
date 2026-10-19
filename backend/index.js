@@ -10,9 +10,9 @@ app.use(cors())
 app.use(morgan('tiny'))
 
 let workouts = [
-  { id: '1', date: '12.10.2026', sport: 'juoksu', duration: 45 },
-  { id: '2', date: '14.10.2026', sport: 'kuntosali', duration: 60 },
-  { id: '3', date: '16.10.2026', sport: 'pyöräily', duration: 90 }
+  { id: '1', date: '2026-10-12', sport: 'Juoksu', duration: 45 },
+  { id: '2', date: '2026-10-14', sport: 'Kuntosali', duration: 60 },
+  { id: '3', date: '2026-10-16', sport: 'Pyöräily', duration: 90 }
 ]
 
 app.get('/api/workouts', (request, response) => {
