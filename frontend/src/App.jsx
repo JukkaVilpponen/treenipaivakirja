@@ -3,12 +3,14 @@ import workoutService from './services/workouts'
 import WorkoutForm from './components/WorkoutForm'
 import WorkoutTable from './components/WorkoutTable'
 import Filter from './components/Filter'
+import Summary from './components/Summary'
 
 const SPORTS = ['Juoksu', 'Kuntosali', 'Pyöräily', 'Uinti', 'Hiihto', 'Muu']
 
 const App = () => {
   const [workouts, setWorkouts] = useState([])
-  const [filter, setFilter] = useState('')
+  const [sportFilter, setSportFilter] = useState('kaikki')
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     workoutService.getAll().then(data => {
@@ -30,11 +32,10 @@ const App = () => {
     }
   }
 
-  const handleFilterChange = (event) => setFilter(event.target.value)
-
-  const workoutsToShow = workouts.filter(w =>
-    w.sport.toLowerCase().includes(filter.toLowerCase())
-  )
+  const workoutsToShow = workouts
+    .filter(w => sportFilter === 'kaikki' || w.sport === sportFilter)
+    .filter(w => (w.notes || '').toLowerCase().includes(search.toLowerCase()))
+    .toSorted((a, b) => new Date(b.date) - new Date(a.date))
 
   return (
     <div>
@@ -44,7 +45,14 @@ const App = () => {
       <WorkoutForm sports={SPORTS} addWorkout={addWorkout} />
 
       <h2>Treenit</h2>
-      <Filter filter={filter} handleFilterChange={handleFilterChange} />
+      <Filter
+        sports={SPORTS}
+        sportFilter={sportFilter}
+        setSportFilter={setSportFilter}
+        search={search}
+        setSearch={setSearch}
+      />
+      <Summary workouts={workoutsToShow} />
       <WorkoutTable workouts={workoutsToShow} deleteWorkout={deleteWorkout} />
     </div>
   )
