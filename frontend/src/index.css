@@ -1,0 +1,16 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  color: green;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+button {
+  margin-left: 5px;
+}
