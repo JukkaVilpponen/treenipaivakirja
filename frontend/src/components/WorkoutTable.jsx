@@ -6,6 +6,9 @@ const WorkoutRow = ({ workout, deleteWorkout }) => {
       <td>{formatDate(workout.date)}</td>
       <td>{workout.sport}</td>
       <td>{workout.duration} min</td>
+      <td>{workout.intensity}</td>
+      <td>{workout.outdoors ? 'ulkona' : 'sisällä'}</td>
+      <td>{workout.notes}</td>
       <td>
         <button onClick={() => deleteWorkout(workout.id)}>poista</button>
       </td>
@@ -21,6 +24,9 @@ const WorkoutTable = ({ workouts, deleteWorkout }) => {
           <th>Päivä</th>
           <th>Laji</th>
           <th>Kesto</th>
+          <th>Teho</th>
+          <th>Paikka</th>
+          <th>Muistiinpanot</th>
           <th></th>
         </tr>
       </thead>

@@ -10,9 +10,9 @@ app.use(cors())
 app.use(morgan('tiny'))
 
 let workouts = [
-  { id: '1', date: '2026-10-12', sport: 'Juoksu', duration: 45 },
-  { id: '2', date: '2026-10-14', sport: 'Kuntosali', duration: 60 },
-  { id: '3', date: '2026-10-16', sport: 'Pyöräily', duration: 90 }
+  { id: '1', date: '2026-10-12', sport: 'Juoksu', duration: 45, intensity: 'kova', outdoors: true, notes: 'Intervallit 6x400m' },
+  { id: '2', date: '2026-10-14', sport: 'Kuntosali', duration: 60, intensity: 'keskitaso', outdoors: false, notes: 'Jalkapäivä' },
+  { id: '3', date: '2026-10-16', sport: 'Pyöräily', duration: 90, intensity: 'kevyt', outdoors: true, notes: '' }
 ]
 
 app.get('/api/workouts', (request, response) => {
@@ -54,7 +54,10 @@ app.post('/api/workouts', (request, response) => {
     id: generateId(),
     date: body.date,
     sport: body.sport,
-    duration: body.duration
+    duration: body.duration,
+    intensity: body.intensity,
+    outdoors: body.outdoors,
+    notes: body.notes
   }
 
   workouts = workouts.concat(workout)
