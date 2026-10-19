@@ -1,26 +1,86 @@
 body {
-  font-family: sans-serif;
-  margin: 20px;
+  font-family: system-ui, sans-serif;
+  background: #f4f6f8;
+  color: #222;
+  margin: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
 }
 
 h1 {
-  color: green;
+  color: #1b6e3c;
 }
 
-table {
-  border-collapse: collapse;
-  margin-top: 10px;
+.workout-form {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-  text-align: left;
+.workout-form label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.radio-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 button {
-  margin-left: 5px;
+  justify-self: start;
+  background: #1b6e3c;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
 }
+
+button.delete {
+  background: #b3261e;
+  padding: 4px 10px;
+}
+
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.summary {
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #1b6e3c;
+  color: white;
+}
+
+.intensity.kova { color: #b3261e; font-weight: bold; }
+.intensity.keskitaso { color: #b26a00; }
+.intensity.kevyt { color: #1b6e3c; }
 
 .notification {
   padding: 10px;
@@ -32,10 +92,10 @@ button {
 
 .notification.success {
   color: green;
-  background: lightgrey;
+  background: #e6f4ea;
 }
 
 .notification.error {
   color: red;
-  background: lightgrey;
+  background: #fde8e8;
 }

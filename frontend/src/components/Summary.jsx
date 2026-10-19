@@ -4,7 +4,7 @@ const Summary = ({ workouts }) => {
   const minutes = totalMinutes % 60
 
   return (
-    <p>
+    <p className="summary">
       {workouts.length} treeniä, yhteensä {hours} h {minutes} min
     </p>
   )

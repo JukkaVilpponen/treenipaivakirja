@@ -12,14 +12,16 @@ const WorkoutForm = ({ sports, addWorkout }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+
     const workoutObject = {
-      date: date,
-      sport: sport,
+      date,
+      sport,
       duration: Number(duration),
-      intensity: intensity,
-      outdoors: outdoors,
-      notes: notes
+      intensity,
+      outdoors,
+      notes
     }
+
     addWorkout(workoutObject).then(success => {
       if (success) {
         setDuration('')
@@ -30,49 +32,51 @@ const WorkoutForm = ({ sports, addWorkout }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="workout-form">
       <div>
-        päivä: <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+        <label>Päivämäärä
+          <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+        </label>
       </div>
       <div>
-        laji:{' '}
-        <select value={sport} onChange={e => setSport(e.target.value)}>
-          {sports.map(s =>
-            <option key={s} value={s}>{s}</option>
-          )}
-        </select>
+        <label>Laji
+          <select value={sport} onChange={e => setSport(e.target.value)}>
+            {sports.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </label>
       </div>
       <div>
-        kesto (min): <input type="number" value={duration} onChange={e => setDuration(e.target.value)} />
+        <label>Kesto (min)
+          <input type="number" min="1" value={duration} onChange={e => setDuration(e.target.value)} />
+        </label>
       </div>
-      <div>
-        teho:
-        <label>
-          <input type="radio" name="intensity" value="kevyt"
-            checked={intensity === 'kevyt'} onChange={e => setIntensity(e.target.value)} />
-          kevyt
-        </label>
-        <label>
-          <input type="radio" name="intensity" value="keskitaso"
-            checked={intensity === 'keskitaso'} onChange={e => setIntensity(e.target.value)} />
-          keskitaso
-        </label>
-        <label>
-          <input type="radio" name="intensity" value="kova"
-            checked={intensity === 'kova'} onChange={e => setIntensity(e.target.value)} />
-          kova
-        </label>
+      <div className="radio-group">
+        Teho:
+        {['kevyt', 'keskitaso', 'kova'].map(level => (
+          <label key={level}>
+            <input
+              type="radio"
+              name="intensity"
+              value={level}
+              checked={intensity === level}
+              onChange={e => setIntensity(e.target.value)}
+            />
+            {level}
+          </label>
+        ))}
       </div>
       <div>
         <label>
           <input type="checkbox" checked={outdoors} onChange={e => setOutdoors(e.target.checked)} />
-          ulkona
+          Ulkona
         </label>
       </div>
       <div>
-        muistiinpanot: <input value={notes} onChange={e => setNotes(e.target.value)} />
+        <label>Muistiinpanot
+          <input value={notes} onChange={e => setNotes(e.target.value)} />
+        </label>
       </div>
-      <button type="submit">lisää</button>
+      <button type="submit">Lisää treeni</button>
     </form>
   )
 }

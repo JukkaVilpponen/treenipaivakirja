@@ -15,9 +15,11 @@ const App = () => {
   const [message, setMessage] = useState(null)
 
   useEffect(() => {
-    workoutService.getAll().then(data => {
-      setWorkouts(data)
-    })
+    workoutService
+      .getAll()
+      .then(initialWorkouts => {
+        setWorkouts(initialWorkouts)
+      })
   }, [])
 
   const notify = (text, type = 'success') => {
@@ -40,17 +42,17 @@ const App = () => {
       })
   }
 
-  const deleteWorkout = (id) => {
-    if (window.confirm('Poistetaanko treeni?')) {
+  const deleteWorkout = (workout) => {
+    if (window.confirm(`Poistetaanko treeni ${workout.sport} (${workout.duration} min)?`)) {
       workoutService
-        .remove(id)
+        .remove(workout.id)
         .then(() => {
-          setWorkouts(workouts.filter(w => w.id !== id))
+          setWorkouts(workouts.filter(w => w.id !== workout.id))
           notify('Treeni poistettiin')
         })
         .catch(() => {
           notify('Treeni oli jo poistettu palvelimelta', 'error')
-          setWorkouts(workouts.filter(w => w.id !== id))
+          setWorkouts(workouts.filter(w => w.id !== workout.id))
         })
     }
   }
@@ -61,7 +63,7 @@ const App = () => {
     .toSorted((a, b) => new Date(b.date) - new Date(a.date))
 
   return (
-    <div>
+    <div className="container">
       <h1>Treenipäiväkirja</h1>
       <Notification message={message} />
 
