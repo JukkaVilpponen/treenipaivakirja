@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import workoutService from './services/workouts'
+import WorkoutForm from './components/WorkoutForm'
+import WorkoutList from './components/WorkoutList'
+import Filter from './components/Filter'
 
 const App = () => {
   const [workouts, setWorkouts] = useState([])
@@ -37,6 +40,11 @@ const App = () => {
     }
   }
 
+  const handleDateChange = (event) => setNewDate(event.target.value)
+  const handleSportChange = (event) => setNewSport(event.target.value)
+  const handleDurationChange = (event) => setNewDuration(event.target.value)
+  const handleFilterChange = (event) => setFilter(event.target.value)
+
   const workoutsToShow = workouts.filter(w =>
     w.sport.toLowerCase().includes(filter.toLowerCase())
   )
@@ -46,31 +54,19 @@ const App = () => {
       <h1>Treenipäiväkirja</h1>
 
       <h2>Lisää treeni</h2>
-      <form onSubmit={addWorkout}>
-        <div>
-          päivä: <input value={newDate} onChange={e => setNewDate(e.target.value)} />
-        </div>
-        <div>
-          laji: <input value={newSport} onChange={e => setNewSport(e.target.value)} />
-        </div>
-        <div>
-          kesto (min): <input value={newDuration} onChange={e => setNewDuration(e.target.value)} />
-        </div>
-        <button type="submit">lisää</button>
-      </form>
+      <WorkoutForm
+        addWorkout={addWorkout}
+        newDate={newDate}
+        newSport={newSport}
+        newDuration={newDuration}
+        handleDateChange={handleDateChange}
+        handleSportChange={handleSportChange}
+        handleDurationChange={handleDurationChange}
+      />
 
       <h2>Treenit</h2>
-      <div>
-        hae lajilla: <input value={filter} onChange={e => setFilter(e.target.value)} />
-      </div>
-      <ul>
-        {workoutsToShow.map(w =>
-          <li key={w.id}>
-            {w.date} {w.sport} {w.duration} min{' '}
-            <button onClick={() => deleteWorkout(w.id)}>poista</button>
-          </li>
-        )}
-      </ul>
+      <Filter filter={filter} handleFilterChange={handleFilterChange} />
+      <WorkoutList workouts={workoutsToShow} deleteWorkout={deleteWorkout} />
     </div>
   )
 }
