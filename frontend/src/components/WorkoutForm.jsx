@@ -20,10 +20,12 @@ const WorkoutForm = ({ sports, addWorkout }) => {
       outdoors: outdoors,
       notes: notes
     }
-    addWorkout(workoutObject).then(() => {
-      setDuration('')
-      setNotes('')
-      setOutdoors(false)
+    addWorkout(workoutObject).then(success => {
+      if (success) {
+        setDuration('')
+        setNotes('')
+        setOutdoors(false)
+      }
     })
   }
 

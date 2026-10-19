@@ -21,3 +21,21 @@ th, td {
 button {
   margin-left: 5px;
 }
+
+.notification {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border-style: solid;
+  font-size: 18px;
+}
+
+.notification.success {
+  color: green;
+  background: lightgrey;
+}
+
+.notification.error {
+  color: red;
+  background: lightgrey;
+}
